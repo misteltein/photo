@@ -8,7 +8,7 @@
     "export": "next export",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "npm run build && touch out/.nojekyll && git add -f out/.nojekyll && git add -f out/* && git commit -m 'Deploy to GitHub Pages' && git push origin gh-pages --force"
+    "deploy": "npm run build && touch out/.nojekyll && git checkout gh-pages && git rm -rf . && cp -r out/* . && git add . && git commit -m 'Deploy to GitHub Pages' && git push origin gh-pages --force && git checkout main"
   },
   "dependencies": {
     "react": "^19.0.0",
