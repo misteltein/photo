@@ -24,8 +24,11 @@ files.forEach((file) => {
   const filePath = path.join(DATA_DIR, file);
   const content = fs.readFileSync(filePath, "utf8");
   const data = yaml.load(content) as { title: string; content: string };
-
-  const pagePath = path.join(PAGES_DIR, `${id}.tsx`);
+  const pageDir = path.join(PAGES_DIR, id);
+  if (!fs.existsSync(pageDir)) {
+    fs.mkdirSync(pageDir, { recursive: true });
+  }
+  const pagePath = path.join(PAGES_DIR, `${id}/page.tsx`);
   fs.writeFileSync(pagePath, template(id, data.title, data.content));
   console.log(`Generated: ${pagePath}`);
 });
